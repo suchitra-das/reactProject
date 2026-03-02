@@ -2,21 +2,20 @@ import React, { useState } from "react";
 
 const Todo = () => {
   const [Todo, setTodo] = useState("");
-  const [arrays, setarray] = useState([]);
+  const [arrays, setArray] = useState([]);
 
   const addTodo = () => {
-    setarray([...arrays, Todo]);
+    setArray([...arrays, Todo]);
   };
 
+  const editHandler = () => {
+    setArray([...arrays]);
+  };
 
-  const editHandler = () =>{
-    setarray([...arrays,])
-
-  }
-
- const deleteHandler = (deleteId) =>{
-  setarray(arrays.filter((i, index) => index !== deleteId ))
- }
+  const deleteHandler = (id, item) => {
+    setTodo(id);
+    setArray((prev) => prev(item !== id));
+  };
 
   // console.log(Todo)
   return (
@@ -36,15 +35,25 @@ const Todo = () => {
       <div>
         <div>
           {arrays.map((item) => {
-            return <div className="flex gap-2 p-2 " >
-                
-               <li key={item}>{item}</li>
-               {/* <input type="checkbox"/> */}
-               <button className="border px-1 py-0 rounded-lg" onClick={editHandler}>Edit</button>
-                <button className="border px-1 py-0 rounded-lg" onClick={()=> deleteHandler(index)}>Delete</button>
-                </div>;
+            return (
+              <div className="flex gap-2 p-2 ">
+                <li key={item}>{item}</li>
+                {/* <input type="checkbox"/> */}
+                <button
+                  className="border px-1 py-0 rounded-lg"
+                  onClick={editHandler}
+                >
+                  Edit
+                </button>
+                <button
+                  className="border px-1 py-0 rounded-lg"
+                  onClick={() => deleteHandler(item)}
+                >
+                  Delete
+                </button>
+              </div>
+            );
           })}
-
         </div>
       </div>
     </div>
